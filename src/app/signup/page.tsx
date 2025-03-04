@@ -1,29 +1,44 @@
-import AuthForm from "@/app/components/auth/AuthForm"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import Link from "next/link";
+import AuthForm from "@/app/components/auth/AuthForm";
 
 export default function SignupPage() {
   return (
-    <div className="flex min-h-screen">
-      {/* Left Column - Content */}
-      <div className="hidden lg:flex lg:w-1/2 flex-col justify-center p-12">
+    <div className="flex min-h-screen font-sans">
+      {/* Left side - Minimalist text */}
+      <div className="hidden lg:flex lg:w-1/2 bg-[#f5f5f7] relative p-16 flex-col justify-center">
         <div className="max-w-md mx-auto">
-          <h1 className="text-4xl font-bold text-black mb-4">
-            Smart, <span className="text-[#F7931E]">Simple</span>
-            <br />
-            Document Signing.
-          </h1>
-          <p className="text-gray-500 text-lg">
+          <h2 className="text-5xl font-medium text-[#1d1d1f] mb-4 tracking-tight">
+            Smart, <span className="text-[#f7882a]">Simple</span> Document Signing.
+          </h2>
+          <p className="text-[#86868b] text-lg font-light leading-relaxed">
             Handle contracts and paperwork with ease using AI-assisted automation.
           </p>
         </div>
       </div>
 
-      {/* Right Column - Form */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
-        <div className="w-full max-w-md">
+      {/* Right side - Apple-inspired signup form */}
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-12 bg-white">
+        <div className="w-full max-w-[360px]">
+          <div className="mb-14">
+            <h1 className="text-2xl font-medium text-[#1d1d1f] mb-2 tracking-tight">Sign up for Folio</h1>
+            <p className="text-[#86868b] text-base font-light">Create your account to start managing documents.</p>
+          </div>
+          
+          {/* Signup Form */}
           <AuthForm type="signup" />
+
+          <div className="text-center mt-12">
+            <p className="text-[#86868b] font-light">
+              Already have an account? {" "}
+              <Link href="/login" className="font-normal text-black hover:underline">
+                Login here
+              </Link>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
