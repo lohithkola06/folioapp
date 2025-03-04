@@ -1,37 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# FolioApp
 
-## Getting Started
+FolioApp is a modern portfolio application built using **Next.js**, **TypeScript**, and **Firebase Authentication**. It allows users to log in using email/password or OAuth providers such as Google, GitHub, and LinkedIn.
 
-First, run the development server:
+## Features
+- User authentication with Firebase (Email/Password & OAuth)
+- Secure and scalable backend with Firebase Database
+- Modern UI with Next.js and TypeScript
+- Optimized performance with PostCSS and ESLint
+- Responsive design
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Tech Stack
+- **Frontend:** Next.js (TypeScript)
+- **Authentication:** Firebase Authentication (Email/Password, Google, GitHub, LinkedIn OAuth)
+- **Database:** Firebase Database
+- **Styling:** PostCSS
+- **Linting & Formatting:** ESLint, Prettier
+
+## Setup Instructions
+### Prerequisites
+Ensure you have the following installed:
+- [Node.js](https://nodejs.org/) (LTS version recommended)
+- npm (comes with Node.js) or yarn/pnpm
+
+### Installation
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/folioapp.git
+   cd folioapp
+   ```
+2. Install dependencies:
+   ```bash
+   npm install  # or yarn install or pnpm install
+   ```
+
+### Environment Variables
+Create a `.env.local` file in the root directory and add the following:
+```env
+NEXT_PUBLIC_FIREBASE_API_KEY=your_api_key
+NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your_auth_domain
+NEXT_PUBLIC_FIREBASE_PROJECT_ID=your_project_id
+NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your_storage_bucket
+NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+NEXT_PUBLIC_FIREBASE_APP_ID=your_app_id
+NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID=your_measurement_id
 ```
+Obtain these credentials from the [Firebase Console](https://console.firebase.google.com/).
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Running the Project
+To start the development server, run:
+```bash
+npm run dev  # or yarn dev or pnpm dev
+```
+Then open [http://localhost:3000](http://localhost:3000) in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Authentication Setup
+This project uses Firebase Authentication for user sign-in. OAuth providers (Google, GitHub, LinkedIn) must be enabled in the Firebase Console under the Authentication settings.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment
+To deploy the application:
+1. Build the project:
+   ```bash
+   npm run build
+   ```
+2. Start the production server:
+   ```bash
+   npm start
+   ```
+Alternatively, you can deploy it on **Vercel**, **Firebase Hosting**, or **Netlify**.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-# folioapp
+## License
+This project is licensed under the MIT License.
