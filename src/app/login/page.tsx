@@ -21,22 +21,8 @@ export default function LoginPage() {
       {/* Right side - Apple-inspired login form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-12 bg-white">
         <div className="w-full max-w-[360px]">
-          <div className="mb-14">
-            <h1 className="text-2xl font-medium text-[#1d1d1f] mb-2 tracking-tight">Login to Folio</h1>
-            <p className="text-[#86868b] text-base font-light">Securely access and manage your documents.</p>
-          </div>
-          
           {/* Login Form */}
           <AuthForm type="login" />
-
-          <div className="text-center mt-12">
-            <p className="text-[#86868b] font-light">
-              Not Registered Yet? {" "}
-              <Link href="/signup" className="font-normal text-black hover:underline">
-                Create an account
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>

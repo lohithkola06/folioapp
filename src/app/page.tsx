@@ -1,14 +1,11 @@
-import Link from "next/link"
-import Image from "next/image"
+import Link from "next/link";
 
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div>
-            <Image src="/placeholder.svg?height=40&width=120" alt="Logo" width={120} height={40} className="h-10" />
-          </div>
+          <h1 className="text-3xl font-bold text-gray-900">FOLIO</h1>
           <div className="flex space-x-4">
             <Link href="/login" className="text-gray-700 hover:text-[#F7931E] px-3 py-2 rounded-md text-sm font-medium">
               Login
@@ -25,9 +22,9 @@ export default function Home() {
 
       <main className="flex-grow flex items-center justify-center bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center">
-          <h1 className="text-4xl font-bold text-gray-900 mb-6">Welcome to Our Platform</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-6">Welcome to Folio</h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            A secure authentication system built with Next.js and Firebase.
+            AI-powered document tool designed for professionals.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
@@ -52,6 +49,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
-

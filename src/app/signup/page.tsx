@@ -21,22 +21,8 @@ export default function SignupPage() {
       {/* Right side - Apple-inspired signup form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-12 bg-white">
         <div className="w-full max-w-[360px]">
-          <div className="mb-14">
-            <h1 className="text-2xl font-medium text-[#1d1d1f] mb-2 tracking-tight">Sign up for Folio</h1>
-            <p className="text-[#86868b] text-base font-light">Create your account to start managing documents.</p>
-          </div>
-          
           {/* Signup Form */}
           <AuthForm type="signup" />
-
-          <div className="text-center mt-12">
-            <p className="text-[#86868b] font-light">
-              Already have an account? {" "}
-              <Link href="/login" className="font-normal text-black hover:underline">
-                Login here
-              </Link>
-            </p>
-          </div>
         </div>
       </div>
     </div>
