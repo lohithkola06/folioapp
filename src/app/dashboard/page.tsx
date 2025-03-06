@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { DocumentList } from "@/components/document-list"
 import { ActionRequired } from "@/components/action-required"
 import { FileText, Upload, LayoutDashboard, Clock, CheckCircle, Settings } from "lucide-react"
+import Link from "next/link"
 
 export default function Page() {
   return (
@@ -16,22 +17,30 @@ export default function Page() {
             </div>
           </div>
           <nav className="p-6 space-y-1 font-apparat">
-            <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600">
-              <LayoutDashboard className="h-5 w-5" />
-              Dashboard
-            </Button>
-            <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600">
-              <Clock className="h-5 w-5" />
-              Waiting for Signature
-            </Button>
-            <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600">
-              <CheckCircle className="h-5 w-5" />
-              Completed
-            </Button>
-            <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600">
-              <Settings className="h-5 w-5" />
-              Settings
-            </Button>
+            <Link href="/dashboard">
+              <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600 bg-slate-50">
+                <LayoutDashboard className="h-5 w-5" />
+                Dashboard
+              </Button>
+            </Link>
+            <Link href="/waiting-for-signature">
+              <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600">
+                <Clock className="h-5 w-5" />
+                Waiting for Signature
+              </Button>
+            </Link>
+            <Link href="/completed">
+              <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600">
+                <CheckCircle className="h-5 w-5" />
+                Completed
+              </Button>
+            </Link>
+            <Link href="/settings">
+              <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600">
+                <Settings className="h-5 w-5" />
+                Settings
+              </Button>
+            </Link>
           </nav>
         </aside>
 
