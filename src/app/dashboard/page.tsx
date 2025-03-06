@@ -1,63 +1,65 @@
-"use client";
+import { Button } from "@/components/ui/button"
+import { DocumentList } from "@/components/document-list"
+import { ActionRequired } from "@/components/action-required"
+import { FileText, Upload, LayoutDashboard, Clock, CheckCircle, Settings } from "lucide-react"
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "@/app/lib/firebase";
-
-export default function Dashboard() {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-      if (!currentUser) {
-        router.push("/login");
-      }
-    });
-    return () => unsubscribe();
-  }, [router]);
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      router.push("/login");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-12 h-12 border-t-4 border-[#F7931E] border-solid rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
+export default function Page() {
   return (
-    <div className="min-h-screen bg-[#f5f5f7] font-sans">
-      <header className="bg-white shadow p-6 flex justify-between items-center">
-        <h1 className="text-3xl font-medium text-[#1d1d1f]">Dashboard</h1>
-        <div className="flex items-center">
-          <span className="mr-4 text-gray-700">{user?.email}</span>
-          <button
-            onClick={handleSignOut}
-            className="bg-[#f7882a] text-white py-2 px-4 rounded-xl hover:bg-[#e07e0e]"
-          >
-            Sign Out
-          </button>
-        </div>
-      </header>
-      <main className="max-w-5xl mx-auto px-6 py-12">
-        <div className="bg-white shadow-md rounded-xl p-8">
-          <h2 className="text-2xl font-medium text-[#1d1d1f] mb-4">Welcome to Your Dashboard</h2>
-          <p className="text-[#86868b] text-lg font-light">Securely manage and access your documents here.</p>
-        </div>
-      </main>
+    <div className="min-h-screen bg-white">
+      <div className="grid lg:grid-cols-[220px_1fr]">
+        {/* Simple Sidebar */}
+        <aside className="border-r bg-slate-50">
+          <div className="flex h-16 items-center gap-2 border-b px-6">
+            <FileText className="h-6 w-6 text-blue-600" />
+            <span className="font-bold">Folio</span>
+          </div>
+          <nav className="p-4 space-y-2">
+            <Button variant="ghost" className="w-full justify-start gap-2">
+              <LayoutDashboard className="h-4 w-4" />
+              Dashboard
+            </Button>
+            <Button variant="ghost" className="w-full justify-start gap-2">
+              <Clock className="h-4 w-4" />
+              Waiting for Signature
+            </Button>
+            <Button variant="ghost" className="w-full justify-start gap-2">
+              <CheckCircle className="h-4 w-4" />
+              Completed
+            </Button>
+            <Button variant="ghost" className="w-full justify-start gap-2">
+              <Settings className="h-4 w-4" />
+              Settings
+            </Button>
+          </nav>
+        </aside>
+
+        {/* Main Content */}
+        <main className="p-6">
+          <div className="mb-6 flex items-center justify-between">
+            <div>
+              <h1 className="text-xl font-bold">Dashboard</h1>
+              <p className="text-sm text-muted-foreground">Manage your documents</p>
+            </div>
+            <Button className="gap-2">
+              <Upload className="h-4 w-4" />
+              Upload Document
+            </Button>
+          </div>
+
+          {/* Documents Needing Signature */}
+          <div className="mb-8">
+            <h2 className="text-lg font-medium mb-4">Action Required</h2>
+            <ActionRequired />
+          </div>
+
+          {/* All Documents */}
+          <div>
+            <h2 className="text-lg font-medium mb-4">Your Documents</h2>
+            <DocumentList />
+          </div>
+        </main>
+      </div>
     </div>
-  );
+  )
 }
+

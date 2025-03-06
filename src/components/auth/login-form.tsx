@@ -1,14 +1,56 @@
+"use client"
+
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import Link from "next/link"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth"
+import { auth, googleProvider } from "@/app/lib/firebase"
 
 export function LoginForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"form">) {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+
+  const handleEmailLogin = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError("")
+    setLoading(true)
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      router.push("/dashboard")
+    } catch (err: any) {
+      setError(err.message || "Failed to login")
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleGoogleLogin = async () => {
+    setError("")
+    setLoading(true)
+
+    try {
+      await signInWithPopup(auth, googleProvider)
+      router.push("/dashboard")
+    } catch (err: any) {
+      setError(err.message || "Failed to login with Google")
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
-    <form className={cn("flex flex-col gap-6", className)} {...props}>
+    <form className={cn("flex flex-col gap-6", className)} onSubmit={handleEmailLogin} {...props}>
       <div className="flex flex-col items-center gap-2 text-center">
         <h1 className="text-2xl font-bold">Login to your account</h1>
         <p className="text-balance text-sm text-muted-foreground">
@@ -18,32 +60,57 @@ export function LoginForm({
       <div className="grid gap-6">
         <div className="grid gap-2">
           <Label htmlFor="email">Email</Label>
-          <Input id="email" type="email" placeholder="name@example.com" required />
+          <Input 
+            id="email" 
+            type="email" 
+            placeholder="name@example.com" 
+            required 
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <div className="grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
-            <a
-              href="#"
+            <Link
+              href="/forgot-password"
               className="ml-auto text-sm underline-offset-4 hover:underline"
             >
               Forgot your password?
-            </a>
+            </Link>
           </div>
-          <Input id="password" type="password" required />
+          <Input 
+            id="password" 
+            type="password" 
+            required 
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </div>
+        {error && (
+          <div className="text-sm text-red-500 text-center">
+            {error}
+          </div>
+        )}
         <Button 
           type="submit" 
-          className="w-full bg-[#ff6e26] hover:bg-[#fc4305] text-white"
+          className="w-full bg-[#ff6e26] text-white"
+          disabled={loading}
         >
-          Login
+          {loading ? "Logging in..." : "Login"}
         </Button>
         <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
           <span className="relative z-10 bg-background px-2 text-muted-foreground">
             Or continue with
           </span>
         </div>
-        <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+        <Button 
+          type="button"
+          variant="outline" 
+          className="w-full flex items-center justify-center gap-2"
+          onClick={handleGoogleLogin}
+          disabled={loading}
+        >
           <svg 
             xmlns="http://www.w3.org/2000/svg" 
             viewBox="0 0 24 24"
@@ -67,14 +134,14 @@ export function LoginForm({
               fill="#EA4335" 
             />
           </svg>
-          Login with Google
+          {loading ? "Logging in..." : "Login with Google"}
         </Button>
       </div>
       <div className="text-center text-sm">
         Don&apos;t have an account?{" "}
-        <a href="#" className="underline underline-offset-4">
+        <Link href="/signup" className="underline underline-offset-4">
           Sign up
-        </a>
+        </Link>
       </div>
     </form>
   )

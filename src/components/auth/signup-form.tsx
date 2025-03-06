@@ -1,19 +1,83 @@
+"use client"
+
 import { cn } from "@/lib/utils" 
 import { Button } from "@/components/ui/button" 
 import { Input } from "@/components/ui/input" 
 import { Label } from "@/components/ui/label"
+import Link from "next/link"
+import { useState } from "react"
+import { useRouter } from "next/navigation"
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth"
+import { auth, googleProvider } from "@/app/lib/firebase"
 
 export function SignUpForm({
   className,
   ...props
 }: React.ComponentPropsWithoutRef<"div">) {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+  const [loading, setLoading] = useState(false)
+  const router = useRouter()
+
+  const handleEmailSignup = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError("")
+    setLoading(true)
+
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters long")
+      setLoading(false)
+      return
+    }
+
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password)
+      if (userCredential.user) {
+        router.push("/dashboard")
+      }
+    } catch (err: any) {
+      console.error(err)
+      if (err.code === 'auth/email-already-in-use') {
+        setError('An account with this email already exists')
+      } else if (err.code === 'auth/invalid-email') {
+        setError('Please enter a valid email address')
+      } else {
+        setError(err.message || "Failed to create account")
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const handleGoogleSignup = async () => {
+    setError("")
+    setLoading(true)
+
+    try {
+      const result = await signInWithPopup(auth, googleProvider)
+      if (result.user) {
+        router.push("/dashboard")
+      }
+    } catch (err: any) {
+      console.error(err)
+      if (err.code === 'auth/popup-closed-by-user') {
+        setError('Sign up was cancelled')
+      } else {
+        setError(err.message || "Failed to sign up with Google")
+      }
+    } finally {
+      setLoading(false)
+    }
+  }
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
-      <form>
+      <form onSubmit={handleEmailSignup}>
         <div className="flex flex-col gap-6">
           <div className="flex flex-col items-center gap-2">
-            <a
-              href="#"
+            <Link
+              href="/"
               className="flex flex-col items-center gap-2 font-medium"
             >
               <img
@@ -22,13 +86,13 @@ export function SignUpForm({
                 className="h-16 w-auto"
               />
               <span className="sr-only">Folio</span>
-            </a>
+            </Link>
             <h1 className="text-xl font-bold">Welcome to Folio</h1>
             <div className="text-center text-sm">
               Already have an account? {" "}
-              <a href="#" className="underline underline-offset-4">
+              <Link href="/login" className="underline underline-offset-4">
                 Login
-              </a>
+              </Link>
             </div>
           </div>
           <div className="flex flex-col gap-6">
@@ -39,10 +103,32 @@ export function SignUpForm({
                 type="email"
                 placeholder="name@example.com"
                 required
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
-            <Button type="submit" className="w-full bg-[#ff6e26]">
-              Sign Up
+            <div className="grid gap-2">
+              <Label htmlFor="password">Password</Label>
+              <Input
+                id="password"
+                type="password"
+                placeholder="At least 6 characters"
+                required
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
+            {error && (
+              <div className="text-sm text-red-500 text-center">
+                {error}
+              </div>
+            )}
+            <Button 
+              type="submit" 
+              className="w-full bg-[#ff6e26] text-white hover:bg-[#ff6e26]/90"
+              disabled={loading}
+            >
+              {loading ? "Creating Account..." : "Sign Up"}
             </Button>
           </div>
           <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
@@ -51,7 +137,13 @@ export function SignUpForm({
             </span>
           </div>
           <div className="flex justify-center">
-            <Button variant="outline" className="w-full max-w-xs flex items-center justify-center gap-2">
+            <Button 
+              type="button"
+              variant="outline" 
+              className="w-full max-w-xs flex items-center justify-center gap-2"
+              onClick={handleGoogleSignup}
+              disabled={loading}
+            >
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 0 24 24"
@@ -75,14 +167,14 @@ export function SignUpForm({
                   fill="#EA4335"
                 />
               </svg>
-              Continue with Google
+              {loading ? "Creating Account..." : "Continue with Google"}
             </Button>
           </div>
         </div>
       </form>
       <div className="text-balance text-center text-xs text-muted-foreground [&_a]:underline [&_a]:underline-offset-4 hover:[&_a]:text-primary">
-        By clicking continue, you agree to our <a href="#">Terms of Service</a>{" "}
-        and <a href="#">Privacy Policy</a>.
+        By clicking continue, you agree to our <Link href="#">Terms of Service</Link>{" "}
+        and <Link href="#">Privacy Policy</Link>.
       </div>
     </div>
   )
