@@ -82,7 +82,7 @@ export function SignUpForm({
             >
               <img
                 src="/assets/logo.png"
-                alt="Folio Logo"
+                alt="Logo"
                 className="h-16 w-auto"
               />
               <span className="sr-only">Folio</span>

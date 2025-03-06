@@ -9,10 +9,9 @@ export default function LoginPage() {
       <div className="flex flex-col gap-4 p-6 md:p-10">
         <div className="flex justify-center gap-2 md:justify-start">
           <Link href="/" className="flex items-center gap-0">
-            {/* LOGO */}
             <img
               src="/assets/logo.png"
-              alt="Folio Logo"
+              alt="Logo"
               className="h-16 w-auto"
             />
             <span className="text-2xl font-semibold">Folio</span>
