@@ -1,9 +1,10 @@
-import { SignUpForm } from "@/components/auth/signup-form"
-export default function SignUpPage() {
+import { ForgotPasswordForm } from "@/components/auth/forgotpassword-form"
+
+export default function ForgotPasswordPage() {
   return (
     <div className="flex min-h-svh flex-col items-center justify-center gap-6 bg-background p-6 md:p-10">
       <div className="w-full max-w-sm">
-        <SignUpForm/>
+        <ForgotPasswordForm />
       </div>
     </div>
   )

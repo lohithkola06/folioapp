@@ -1,63 +1,76 @@
-"use client";
+import { Button } from "@/components/ui/button"
+import { DocumentList } from "@/components/document-list"
+import { ActionRequired } from "@/components/action-required"
+import { FileText, Upload, LayoutDashboard, Clock, CheckCircle, Settings } from "lucide-react"
+import Link from "next/link"
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { onAuthStateChanged, signOut } from "firebase/auth";
-import { auth } from "@/app/lib/firebase";
-
-export default function Dashboard() {
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-  const router = useRouter();
-
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-      setUser(currentUser);
-      setLoading(false);
-      if (!currentUser) {
-        router.push("/login");
-      }
-    });
-    return () => unsubscribe();
-  }, [router]);
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      router.push("/login");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
-  };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="w-12 h-12 border-t-4 border-[#F7931E] border-solid rounded-full animate-spin"></div>
-      </div>
-    );
-  }
-
+export default function Page() {
   return (
-    <div className="min-h-screen bg-[#f5f5f7] font-sans">
-      <header className="bg-white shadow p-6 flex justify-between items-center">
-        <h1 className="text-3xl font-medium text-[#1d1d1f]">Dashboard</h1>
-        <div className="flex items-center">
-          <span className="mr-4 text-gray-700">{user?.email}</span>
-          <button
-            onClick={handleSignOut}
-            className="bg-[#f7882a] text-white py-2 px-4 rounded-xl hover:bg-[#e07e0e]"
-          >
-            Sign Out
-          </button>
-        </div>
-      </header>
-      <main className="max-w-5xl mx-auto px-6 py-12">
-        <div className="bg-white shadow-md rounded-xl p-8">
-          <h2 className="text-2xl font-medium text-[#1d1d1f] mb-4">Welcome to Your Dashboard</h2>
-          <p className="text-[#86868b] text-lg font-light">Securely manage and access your documents here.</p>
-        </div>
-      </main>
+    <div className="min-h-screen bg-[#f5f5f7]">
+      <div className="grid lg:grid-cols-[240px_1fr]">
+        {/* Simple Sidebar */}
+        <aside className="border-r border-slate-100 bg-white/80 backdrop-blur-xl">
+          <div className="flex h-24 items-center border-b border-slate-100 px-8">
+            <div className="flex items-center gap-0">
+              <img src="/assets/logo.png" alt="Logo" className="h-16 w-auto" />
+              <span className="text-2xl font-semibold">Folio</span>
+            </div>
+          </div>
+          <nav className="p-6 space-y-1 font-apparat">
+            <Link href="/dashboard">
+              <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600 bg-slate-50">
+                <LayoutDashboard className="h-5 w-5" />
+                Dashboard
+              </Button>
+            </Link>
+            <Link href="/waiting-for-signature">
+              <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600">
+                <Clock className="h-5 w-5" />
+                Waiting for Signature
+              </Button>
+            </Link>
+            <Link href="/completed">
+              <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600">
+                <CheckCircle className="h-5 w-5" />
+                Completed
+              </Button>
+            </Link>
+            <Link href="/settings">
+              <Button variant="ghost" className="w-full justify-start gap-3 h-10 rounded-lg text-slate-600">
+                <Settings className="h-5 w-5" />
+                Settings
+              </Button>
+            </Link>
+          </nav>
+        </aside>
+
+        {/* Main Content */}
+        <main className="px-8 py-8 font-apparat">
+          <div className="mb-10 flex items-center justify-between">
+            <div>
+              <h1 className="text-2xl font-quasimoda font-semibold text-slate-900">Dashboard</h1>
+              <p className="text-sm text-slate-500 mt-1">Manage your documents</p>
+            </div>
+            <Button className="gap-2 bg-orange-600 hover:bg-orange-700 h-10 px-6 rounded-lg shadow-sm">
+              <Upload className="h-4 w-4" />
+              Upload Document
+            </Button>
+          </div>
+
+          {/* Documents Needing Signature */}
+          <div className="mb-12">
+            <h2 className="text-lg font-quasimoda font-medium mb-6 text-slate-900">Action Required</h2>
+            <ActionRequired />
+          </div>
+
+          {/* All Documents */}
+          <div>
+            <h2 className="text-lg font-quasimoda font-medium mb-6 text-slate-900">Your Documents</h2>
+            <DocumentList />
+          </div>
+        </main>
+      </div>
     </div>
-  );
+  )
 }
+
