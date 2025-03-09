@@ -1,6 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import "./globals.css"
+import { Toaster } from "@/components/toaster"
 
 export const metadata: Metadata = {
   title: "Folio - Document Management",
@@ -17,7 +18,10 @@ export default function RootLayout({
       <head>
         <link rel="stylesheet" href="https://use.typekit.net/[YOUR-KIT-CODE].css" />
       </head>
-      <body className="font-apparat antialiased">{children}</body>
+      <body className="font-apparat antialiased">
+        {children}
+        <Toaster />
+      </body>
     </html>
   )
 }

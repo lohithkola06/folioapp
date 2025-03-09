@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
-import { LayoutDashboard, Clock, CheckCircle, Settings, FileText, MoreVertical, Search, Filter, Download, Share2 } from "lucide-react"
+import { LayoutDashboard, Clock, CheckCircle, Settings, Search, Filter } from "lucide-react"
 import Link from "next/link"
+import { DocumentList } from "@/components/document-list"
 
 export default function CompletedPage() {
   return (
@@ -66,97 +67,7 @@ export default function CompletedPage() {
           </div>
 
           {/* Document List */}
-          <div className="space-y-4">
-            {/* Document Card 1 */}
-            <div className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-green-50 rounded-lg">
-                    <FileText className="h-6 w-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-slate-900">Employment Contract</h3>
-                    <p className="text-sm text-slate-500">From: HR Department</p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full">Completed</span>
-                      <span className="text-sm text-slate-500">Signed on Jan 15, 2024</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <Share2 className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Document Card 2 */}
-            <div className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-green-50 rounded-lg">
-                    <FileText className="h-6 w-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-slate-900">Non-Disclosure Agreement</h3>
-                    <p className="text-sm text-slate-500">From: Legal Team</p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full">Completed</span>
-                      <span className="text-sm text-slate-500">Signed on Jan 10, 2024</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <Share2 className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Document Card 3 */}
-            <div className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-green-50 rounded-lg">
-                    <FileText className="h-6 w-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-slate-900">Project Agreement</h3>
-                    <p className="text-sm text-slate-500">From: Project Manager</p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="px-2 py-1 bg-green-50 text-green-700 text-xs rounded-full">Completed</span>
-                      <span className="text-sm text-slate-500">Signed on Jan 5, 2024</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <Share2 className="h-4 w-4" />
-                  </Button>
-                  <Button variant="outline" size="icon">
-                    <Download className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <DocumentList status="completed" />
         </main>
       </div>
     </div>

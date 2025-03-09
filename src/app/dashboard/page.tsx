@@ -1,10 +1,16 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { DocumentList } from "@/components/document-list"
 import { ActionRequired } from "@/components/action-required"
+import { UploadDocumentDialog } from "@/components/upload-document-dialog"
 import { FileText, Upload, LayoutDashboard, Clock, CheckCircle, Settings } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
 
 export default function Page() {
+  const [showUploadDialog, setShowUploadDialog] = useState(false)
+
   return (
     <div className="min-h-screen bg-[#f5f5f7]">
       <div className="grid lg:grid-cols-[240px_1fr]">
@@ -51,7 +57,10 @@ export default function Page() {
               <h1 className="text-2xl font-quasimoda font-semibold text-slate-900">Dashboard</h1>
               <p className="text-sm text-slate-500 mt-1">Manage your documents</p>
             </div>
-            <Button className="gap-2 bg-orange-600 hover:bg-orange-700 h-10 px-6 rounded-lg shadow-sm">
+            <Button 
+              className="gap-2 bg-orange-600 hover:bg-orange-700 h-10 px-6 rounded-lg shadow-sm"
+              onClick={() => setShowUploadDialog(true)}
+            >
               <Upload className="h-4 w-4" />
               Upload Document
             </Button>
@@ -70,6 +79,11 @@ export default function Page() {
           </div>
         </main>
       </div>
+
+      <UploadDocumentDialog 
+        open={showUploadDialog} 
+        onOpenChange={setShowUploadDialog} 
+      />
     </div>
   )
 }

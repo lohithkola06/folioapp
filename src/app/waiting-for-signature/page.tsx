@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
-import { LayoutDashboard, Clock, CheckCircle, Settings, FileText, AlertCircle, MoreVertical, Search, Filter } from "lucide-react"
+import { LayoutDashboard, Clock, CheckCircle, Settings, Search, Filter } from "lucide-react"
 import Link from "next/link"
+import { DocumentList } from "@/components/document-list"
 
 export default function WaitingForSignaturePage() {
   return (
@@ -66,82 +67,7 @@ export default function WaitingForSignaturePage() {
           </div>
 
           {/* Document List */}
-          <div className="space-y-4">
-            {/* Document Card 1 */}
-            <div className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-orange-50 rounded-lg">
-                    <FileText className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-slate-900">Employment Contract</h3>
-                    <p className="text-sm text-slate-500">From: HR Department</p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="px-2 py-1 bg-orange-50 text-orange-700 text-xs rounded-full">Urgent</span>
-                      <span className="text-sm text-slate-500">Expires in 2 days</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                  <Button className="bg-orange-600 hover:bg-orange-700">Sign Now</Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Document Card 2 */}
-            <div className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-orange-50 rounded-lg">
-                    <FileText className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-slate-900">Non-Disclosure Agreement</h3>
-                    <p className="text-sm text-slate-500">From: Legal Team</p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="px-2 py-1 bg-slate-100 text-slate-700 text-xs rounded-full">Standard</span>
-                      <span className="text-sm text-slate-500">Expires in 5 days</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                  <Button className="bg-orange-600 hover:bg-orange-700">Sign Now</Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Document Card 3 */}
-            <div className="bg-white rounded-xl p-4 border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
-              <div className="flex items-start justify-between">
-                <div className="flex items-start gap-4">
-                  <div className="p-2 bg-orange-50 rounded-lg">
-                    <FileText className="h-6 w-6 text-orange-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-slate-900">Project Agreement</h3>
-                    <p className="text-sm text-slate-500">From: Project Manager</p>
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="px-2 py-1 bg-red-50 text-red-700 text-xs rounded-full">Overdue</span>
-                      <span className="text-sm text-slate-500">Expired 1 day ago</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
-                    <MoreVertical className="h-4 w-4" />
-                  </Button>
-                  <Button className="bg-orange-600 hover:bg-orange-700">Sign Now</Button>
-                </div>
-              </div>
-            </div>
-          </div>
+          <DocumentList status="pending" />
         </main>
       </div>
     </div>
