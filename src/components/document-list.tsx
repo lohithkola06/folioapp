@@ -28,31 +28,6 @@ export function DocumentList({ status }: DocumentListProps) {
   const [documentToDelete, setDocumentToDelete] = useState<Document | null>(null)
   const { toast } = useToast()
 
-  // Test different query scopes
-  const testQueries = async () => {
-    if (!auth.currentUser) return;
-
-    // Test basic user documents query
-    onSnapshot(documentQueries.forUser(auth.currentUser.uid), (snapshot) => {
-      console.log("Basic query results:", snapshot.docs.length);
-    });
-
-    // Test status filter
-    onSnapshot(documentQueries.forUserByStatus(auth.currentUser.uid, 'pending'), (snapshot) => {
-      console.log("Status filter results:", snapshot.docs.length);
-    });
-
-    // Test pagination
-    onSnapshot(documentQueries.forUserPaginated(auth.currentUser.uid, 5), (snapshot) => {
-      console.log("Paginated results:", snapshot.docs.length);
-    });
-
-    // Test search
-    onSnapshot(documentQueries.searchByName(auth.currentUser.uid, "test"), (snapshot) => {
-      console.log("Search results:", snapshot.docs.length);
-    });
-  };
-
   useEffect(() => {
     if (!auth.currentUser) return
 
@@ -119,15 +94,6 @@ export function DocumentList({ status }: DocumentListProps) {
 
   return (
     <div className="space-y-6">
-      {/* Test Queries Button - Always visible */}
-      <Button 
-        variant="outline" 
-        onClick={testQueries}
-        className="mb-4"
-      >
-        Test All Queries
-      </Button>
-
       {loading ? (
         <div className="text-center py-12">
           <FileText className="mx-auto h-12 w-12 text-slate-300 animate-pulse" />
