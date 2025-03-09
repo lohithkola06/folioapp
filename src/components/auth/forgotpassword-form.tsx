@@ -74,7 +74,7 @@ export function ForgotPasswordForm({
                 <h1 className="text-xl font-bold">Reset Your Password</h1>
                 <div className="text-center text-sm">
                   Remember your password?{" "}
-                  <Link href="/login" className="underline underline-offset-4">
+                  <Link href="/userAuth/login" className="underline underline-offset-4">
                     Login
                   </Link>
                 </div>

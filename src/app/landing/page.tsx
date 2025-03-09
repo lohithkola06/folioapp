@@ -15,7 +15,7 @@ export default function Dashboard() {
       setUser(currentUser);
       setLoading(false);
       if (!currentUser) {
-        router.push("/login");
+        router.push("/userAuth/login");
       }
     });
     return () => unsubscribe();
@@ -24,7 +24,7 @@ export default function Dashboard() {
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      router.push("/login");
+      router.push("/userAuth/login");
     } catch (error) {
       console.error("Error signing out:", error);
     }

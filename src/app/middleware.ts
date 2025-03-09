@@ -8,7 +8,7 @@ export function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname
 
   // Public paths that don't require authentication
-  const isPublicPath = path === "/login" || path === "/signup"
+  const isPublicPath = path === "/userAuth/login" || path === "/userAuth/signup"
 
   // Check for auth cookie/token (this is a placeholder)
   // In a real app, you'd verify the token
@@ -20,7 +20,7 @@ export function middleware(request: NextRequest) {
   }
 
   if (!isPublicPath && !isAuthenticated && path !== "/") {
-    return NextResponse.redirect(new URL("/login", request.url))
+    return NextResponse.redirect(new URL("/userAuth/login", request.url))
   }
 
   return NextResponse.next()

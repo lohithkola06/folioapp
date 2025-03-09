@@ -102,7 +102,7 @@ export function SignUpForm({
                 <h1 className="text-xl font-bold">Welcome to Folio</h1>
                 <div className="text-center text-sm">
                   Already have an account? {" "}
-                  <Link href="/login" className="underline underline-offset-4">
+                  <Link href="/userAuth/login" className="underline underline-offset-4">
                     Login
                   </Link>
                 </div>
